@@ -13,6 +13,7 @@ CREATE TABLE users (
   user_id INT PRIMARY KEY AUTO_INCREMENT, -- 使用者 ID
   userName VARCHAR(40) NOT NULL UNIQUE,      -- 使用者名稱（唯一）
   password VARCHAR(40) NOT NULL,             -- 密碼
+  registerTime DATETIME NOT NULL,           -- 註冊時間
   userLevel INT NOT NULL,                 -- 使用者等級（0-3）
   CHECK (userLevel BETWEEN 0 AND 3)       -- 等級範圍檢查
 );
@@ -123,6 +124,19 @@ CREATE TABLE collect (
     ON UPDATE CASCADE 
     ON DELETE CASCADE
 );
+
+DELIMITER $$
+CREATE TRIGGER after_order_insert
+AFTER INSERT ON orders
+FOR EACH ROW
+BEGIN
+  -- 更新對應商品的銷量
+  UPDATE product
+  SET product_sales = product_sales + NEW.product_num
+  WHERE product_id = NEW.product_id;
+END $$
+DELIMITER ;
+
 
 -- 顯示所有表
 SHOW TABLES;

@@ -5,14 +5,14 @@ USE storeDB;
 
 
 insert into users values
-(null, 'admin1', 'abc123', 3),
-(null, 'admin2', 'efg456', 3),
-(null, 'AAAAA', 'qaz123', 2),
-(null, 'BBBBB', 'wsx456', 2),
-(null, 'CCCCC', 'edc789', 1),
-(null, 'DDDDD', 'qaz111', 1),
-(null, 'EEEEE', 'wsx222', 1),
-(null, 'FFFFF', 'edc333', 1);
+(null, 'admin1', 'abc123', NOW(), 3),
+(null, 'admin2', 'efg456', NOW(), 3),
+(null, 'AAAAA', 'qaz123', NOW(), 2),
+(null, 'BBBBB', 'wsx456', NOW(), 2),
+(null, 'CCCCC', 'edc789', NOW(), 1),
+(null, 'DDDDD', 'qaz111', NOW(), 1),
+(null, 'EEEEE', 'wsx222', NOW(), 1),
+(null, 'FFFFF', 'edc333', NOW(), 1);
 
 
 INSERT INTO carousel VALUES

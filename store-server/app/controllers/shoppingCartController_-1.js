@@ -24,7 +24,6 @@ let methods = {
         price: product[0].product_selling_price,
         num: temp.num,
         maxNum: Math.floor(product[0].product_num / 2),
-        availableStock: product[0].product_num - product[0].product_sales,
         check: false
       };
 
@@ -65,71 +64,40 @@ module.exports = {
     if (!checkLogin(ctx, user_id)) {
       return;
     }
-  
-    // 獲取商品資訊
-    const product = await productDao.GetProductById(product_id);
-  
-    if (product.length === 0) {
-      ctx.body = {
-        code: '006',
-        msg: '商品不存在'
-      };
-      return;
-    }
-  
-    const maxNum = Math.floor(product[0].product_num / 2); // 限購數量
-    const sales = product[0].product_sales; // 已售數量
-    const availableStock = product[0].product_num - sales; // 剩餘庫存
-  
-    // 判斷剩餘庫存是否足夠
-    if (availableStock <= 0) {
-      ctx.body = {
-        code: '003',
-        msg: `庫存不足，該商品已售罄`
-      };
-      return;
-    } 
 
-    // 獲取購物車中的商品
     let tempShoppingCart = await shoppingCartDao.FindShoppingCart(user_id, product_id);
-    // 判斷該用戶的購物車是否已有該商品
+    //判斷該使用者的購物車是否有該商品
     if (tempShoppingCart.length > 0) {
+      //如果存在則把數量+1
       const tempNum = tempShoppingCart[0].num + 1;
-  
-      // 判斷是否超過限購數量
+
+      const product = await productDao.GetProductById(tempShoppingCart[0].product_id);
+      const maxNum = Math.floor(product[0].product_num / 2);
+      //判斷數量是否達限購數量
       if (tempNum > maxNum) {
         ctx.body = {
           code: '003',
           msg: '數量達到限購數量 ' + maxNum
-        };
+        }
         return;
       }
-  
-      // 判斷剩餘庫存是否足夠
-      if (tempNum > availableStock) {
-        ctx.body = {
-          code: '003',
-          msg: `庫存不足，僅剩 ${availableStock} 件可購買`
-        };
-        return;
-      }
-  
+
       try {
-        // 更新購物車訊息，把數量 +1
+        // 更新購物車訊息,把數量+1
         const result = await shoppingCartDao.UpdateShoppingCart(tempNum, user_id, product_id);
-  
+
         if (result.affectedRows === 1) {
           ctx.body = {
             code: '002',
             msg: '該商品已在購物車，數量 +1'
-          };
+          }
           return;
         }
       } catch (error) {
         reject(error);
       }
     } else {
-      // 商品不在購物車中，新增到購物車
+      //不存在則添加
       try {
         // 新插入購物車信息
         const res = await shoppingCartDao.AddShoppingCart(user_id, product_id);
@@ -148,21 +116,15 @@ module.exports = {
           return;
         }
       } catch (error) {
-        ctx.body = {
-          code: '005',
-          msg: '增加購物車失敗, 伺服器錯誤'
-        };
-        console.error(error);
-        return;
+        reject(error);
       }
     }
-  
+
     ctx.body = {
       code: '005',
-      msg: '增加購物車失敗, 未知錯誤'
-    };
+      msg: '增加購物車失敗,未知錯誤'
+    }
   },
-  
   /**
    * 刪除購物車訊息
    * @param {Object} ctx
@@ -214,62 +176,51 @@ module.exports = {
     if (num < 1) {
       ctx.body = {
         code: '004',
-        msg: '數量不合法，最小數量為 1'
-      };
+        msg: '數量不合法'
+      }
       return;
     }
-
     // 判斷該用戶的購物車是否有該商品
-    const tempShoppingCart = await shoppingCartDao.FindShoppingCart(user_id, product_id);
+    let tempShoppingCart = await shoppingCartDao.FindShoppingCart(user_id, product_id);
 
     if (tempShoppingCart.length > 0) {
-      // 如果存在，判斷數量是否有變化
-      if (tempShoppingCart[0].num === num) {
+      // 如果存在則修改
+
+      // 判斷數量是否有變化
+      if (tempShoppingCart[0].num == num) {
         ctx.body = {
           code: '003',
           msg: '數量沒有發生變化'
-        };
+        }
         return;
-      }    
-      // 獲取商品信息
+      }
       const product = await productDao.GetProductById(product_id);
-      const maxNum = Math.floor(product[0].product_num / 2); // 限購數量
-      const sales = product[0].product_sales; // 已售出數量
-      const availableStock = product[0].product_num - sales; // 剩餘庫存
-      // 判斷是否超過限購數量
+      const maxNum = Math.floor(product[0].product_num / 2);
+      // 判斷數量是否達到限購數量
       if (num > maxNum) {
         ctx.body = {
           code: '004',
-          msg: `數量達到限購數量，最多可購買 ${maxNum} 件`
-        };
-        return;
-      }
-  
-      // 判斷剩餘庫存是否足夠
-      if (num > availableStock) {
-        ctx.body = {
-          code: '004',
-          msg: `庫存不足，僅剩 ${availableStock} 件可購買`
-        };
+          msg: '數量達限購數量 ' + maxNum
+        }
         return;
       }
 
       try {
-        // 修改購物車數量
+        // 修改購物車資訊
         const result = await shoppingCartDao.UpdateShoppingCart(num, user_id, product_id);
         // 判斷是否修改成功
         if (result.affectedRows === 1) {
           ctx.body = {
             code: '001',
             msg: '修改購物車數量成功'
-          };
+          }
           return;
         }
       } catch (error) {
         reject(error);
       }
     } else {
-      // 購物車中不存在該商品
+      //不存在則回傳訊息
       ctx.body = {
         code: '002',
         msg: '該商品不在購物車'

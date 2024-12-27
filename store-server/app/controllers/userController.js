@@ -194,8 +194,12 @@ module.exports = {
     }
 
     try {
+      // 獲取當前時間
+      let registerTime = new Date(); // JavaScript Date 對象表示當前時間
       // 連接資料庫插入使用者資訊
-      let registerResult = await userDao.Register(userName, password);
+      let registerResult = await userDao.Register(userName, password, registerTime);
+      // 連接資料庫插入使用者資訊
+      // let registerResult = await userDao.Register(userName, password);
       // 操作所影響的記錄行數為1,則代表註冊成功
       if (registerResult.affectedRows === 1) {
         ctx.body = {

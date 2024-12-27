@@ -19,6 +19,7 @@
           <h2>{{ getRoleName(item.userLevel) }}</h2>
           <h3>{{item.userName}}</h3>
           <h4>密碼：{{item.password}}</h4>
+          <h4>日期：{{ formatDate(item.registerTime) }}</h4>
         </router-link>
       </li>
     </ul>
@@ -38,6 +39,14 @@ export default {
     getRoleName(userLevel) {
       const roles = ['訪客', '顧客', '賣家', '管理員'];
       return roles[userLevel] || '未知角色';
+    },
+    formatDate(dateTime) {
+      if (!dateTime) return '';
+      const date = new Date(dateTime);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // 月份從0開始
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
     },
     // 刪除使用者
     deleteUser(user_id) {
@@ -75,7 +84,7 @@ export default {
   z-index: 1;
   float: left;
   width: 234px;
-  height: 280px;
+  height: 300px;
   padding: 10px 0;
   margin: 0 0 14.5px 13.7px;
   background-color: white;
@@ -109,7 +118,7 @@ export default {
   overflow: hidden;
 }
 .userList ul li h3 {
-  margin: 25px 10px 0;
+  margin: 20px 10px 0;
   font-size: 30px;
   font-weight: 400;
   color: #333;

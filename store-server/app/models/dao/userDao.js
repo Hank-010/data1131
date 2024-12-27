@@ -20,10 +20,10 @@ module.exports = {
     return await db.query(sql, userName);
   },
   // 連接資料庫插入使用者訊息
-  Register: async (userName, password) => {
+  Register: async (userName, password, registerTime) => {
     const sql = `
-    insert into users (userName, password, userLevel) values(?,?,1)`;
-    return await db.query(sql, [userName, password]);
+    insert into users (userName, password, registerTime, userLevel) values(?,?,?,1)`;
+    return await db.query(sql, [userName, password, registerTime]);
   },
   // 連結資料庫,取得使用者的所有訊息
   GetUser: async () => {

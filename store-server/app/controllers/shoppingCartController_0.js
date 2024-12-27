@@ -24,7 +24,6 @@ let methods = {
         price: product[0].product_selling_price,
         num: temp.num,
         maxNum: Math.floor(product[0].product_num / 2),
-        availableStock: product[0].product_num - product[0].product_sales,
         check: false
       };
 
@@ -88,10 +87,11 @@ module.exports = {
         msg: `庫存不足，該商品已售罄`
       };
       return;
-    } 
-
+    }
+  
     // 獲取購物車中的商品
     let tempShoppingCart = await shoppingCartDao.FindShoppingCart(user_id, product_id);
+  
     // 判斷該用戶的購物車是否已有該商品
     if (tempShoppingCart.length > 0) {
       const tempNum = tempShoppingCart[0].num + 1;
@@ -126,25 +126,23 @@ module.exports = {
           return;
         }
       } catch (error) {
-        reject(error);
+        ctx.body = {
+          code: '005',
+          msg: '增加購物車失敗, 伺服器錯誤'
+        };
+        console.error(error);
+        return;
       }
     } else {
       // 商品不在購物車中，新增到購物車
       try {
-        // 新插入購物車信息
         const res = await shoppingCartDao.AddShoppingCart(user_id, product_id);
-        // 判斷是否插入成功
+  
         if (res.affectedRows === 1) {
-          // 如果成功,取得該商品的購物車訊息
-          const shoppingCart = await shoppingCartDao.FindShoppingCart(user_id, product_id);
-          // 產生購物車詳細信息
-          const data = await methods.ShoppingCartData(shoppingCart);
-
           ctx.body = {
             code: '001',
-            msg: '加入購物車成功',
-            shoppingCartData: data
-          }
+            msg: '加入購物車成功'
+          };
           return;
         }
       } catch (error) {
