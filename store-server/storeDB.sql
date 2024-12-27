@@ -90,8 +90,7 @@ CREATE TABLE shoppingCart (
 -- 創建 orders 表
 DROP TABLE IF EXISTS orders;
 CREATE TABLE orders (
-  id INT PRIMARY KEY AUTO_INCREMENT,        -- 訂單表 ID
-  order_id BIGINT NOT NULL,                 -- 訂單編號
+  id INT PRIMARY KEY AUTO_INCREMENT,        -- 訂單編號 ID
   user_id INT NOT NULL,                     -- 使用者 ID
   product_id INT NOT NULL,                  -- 商品 ID
   product_num INT NOT NULL,                 -- 購買數量

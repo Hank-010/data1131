@@ -106,6 +106,8 @@ import UserList from './components/UserList';
 Vue.component(UserList.name, UserList);
 import ProductRegister from './components/ProductRegister';
 Vue.component(ProductRegister.name, ProductRegister);
+import MyProductList from './components/MyProductList';
+Vue.component(MyProductList.name, MyProductList);
 
 Vue.config.productionTip = false;
 

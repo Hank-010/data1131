@@ -41,7 +41,8 @@ module.exports = {
       for (let j = 0; j < orders.length; j++) {
         const order = orders[j];
 
-        if (orderID.order_id == order.order_id) {
+        // if (orderID.order_id == order.order_id) {
+        if (orderID.order_time == order.order_time) {
           // 獲取每個商品詳細信息
           const product = await productDao.GetProductById(order.product_id);
           order.product_name = product[0].product_name;
@@ -72,14 +73,12 @@ module.exports = {
 
     // 取得當前時間戳
     const timeTemp = new Date().getTime();
-    // 生成訂單id：使用者id+時間戳(string)
-    const orderID = +("" + user_id + timeTemp);
 
     let data = [];
     // 根據資料庫表結構產生欄位信息
     for (let i = 0; i < products.length; i++) {
       const temp = products[i];
-      let product = [orderID, user_id, temp.productID, temp.num, temp.price, timeTemp, total_price];
+      let product = [user_id, temp.productID, temp.num, temp.price, timeTemp, total_price];
       data.push(...product);
     }
 

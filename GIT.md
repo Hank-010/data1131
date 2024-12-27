@@ -48,3 +48,12 @@
 
 ### 檢查推送結果：
 推送完成後，進入你的 GitHub 頁面 [https://github.com/Hank-010/-_-](https://github.com/Hank-010/-_-)，應該能看到檔案已成功上傳。
+
+
+# 推送
+PS C:\Users\HANK\Desktop\113.1\資料庫系統\PH\phase_4\Database_project>
+
+cd Database_project
+git add .
+git commit -m "Your commit msg."
+git push origin master  

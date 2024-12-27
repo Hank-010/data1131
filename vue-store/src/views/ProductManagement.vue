@@ -13,10 +13,12 @@
     </div>
     <div class="content">
       <div class="goods-list" v-if="productManagementList.length > 0">
+      <!-- <div class="goods-list"> -->
         <MyProductList :list="productManagementList" :isDelete="true"></MyProductList>
       </div>
       <!-- 使用者清單為空的時候顯示的內容 -->
       <div v-else class="productManagement-empty">
+      <!-- <div class="productManagement-empty"> -->
         <div class="empty">
           <h2>沒有任何商品！</h2>
           <p>快去添加吧！</p>
@@ -28,6 +30,33 @@
 </template>
 
 <script>
+export default {
+  data() {
+    return {
+      productManagementList: []
+    };
+  },
+  activated() {
+    // 取得商品數據
+    this.$axios
+      .post("/api/user/product/getProductManagement", {
+        user_id: this.$store.getters.getUser.user_id
+      })
+      .then(res => {
+        if (res.data.code === "001") {
+          this.productManagementList = res.data.productManagementList;
+        } else {
+          this.$message.error(res.data.msg || "獲取商品數據失敗！");
+        }
+      })
+      .catch(err => {
+        return Promise.reject(err);
+      });
+  }
+};
+</script>
+
+<!-- <script>
 export default {
   data() {
     return {
@@ -64,7 +93,7 @@ export default {
     }
   }
 };
-</script>
+</script> -->
 
 
 <style>

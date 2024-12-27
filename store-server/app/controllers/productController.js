@@ -150,10 +150,14 @@ module.exports = {
    */
   GetProductManagement: async ctx => {
     let { user_id } = ctx.request.body;
+    // 校驗使用者是否登入
+    if (!checkLogin(ctx, user_id)) {
+      return;
+    }
 
-    const Product = await productDao.GetProductBySellerId(user_id);
+    const productList = await productDao.GetProductBySellerId(user_id);
 
-    if (userManagement.length == 0) {
+    if (productList.length == 0) {
       ctx.body = {
         code: '002',
         msg: '沒有符合條件的商品'
@@ -161,9 +165,18 @@ module.exports = {
       return;
     }
 
+    let productManagementList = [];
+    // 產生收藏商品的詳細資料列表
+    for (let i = 0; i < productList.length; i++) {
+      const temp = productList[i];
+      // 獲取每個商品詳細信息
+      const product = await productDao.GetProductById(temp.product_id);
+      productManagementList.push(product[0]);
+    }
+
     ctx.body = {
       code: '001',
-      productManagementList: Product,
+      productManagementList: productManagementList,
     }
   },
   /**
@@ -239,7 +252,11 @@ module.exports = {
             return;
           }
         } catch (error) {
-          reject(error);
+          // reject(error);
+          ctx.body = {
+            code: '500',
+            msg: `資料庫操作失敗: ${error.message}`
+          };
         }
       } else {
         // 不存在則回傳訊息

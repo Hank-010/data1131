@@ -20,7 +20,8 @@
         <ul>
           <!--我的訂單表頭 -->
           <li class="order-info">
-            <div class="order-id">訂單編號: {{item[0].order_id}}</div>
+            <!-- <div class="order-id">訂單編號: {{item[0].order_id}}</div> -->
+            <div class="order-id">訂單編號: {{"" + (item[0].user_id) + (item[0].order_time)}}</div>
             <div class="order-time">訂單時間: {{item[0].order_time | dateFormat}}</div>
           </li>
           <li class="header">

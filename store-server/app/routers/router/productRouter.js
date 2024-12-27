@@ -14,9 +14,9 @@ productRouter
   .post('/product/getCategory', productController.GetCategory)
   .post('/product/getProductBySearch', productController.GetProductBySearch)
   .post('/product/getDetails', productController.GetDetails)
-  .post('/product/getProductManagement', productController.GetProductManagement)
   .post('/product/getDetailsPicture', productController.GetDetailsPicture)
   .post('/product/addNewProduct', productController.AddNewProduct)
+  .post('/product/getProductManagement', productController.GetProductManagement)
   .post('/product/deleteProduct', productController.DeleteProduct)
   
 module.exports = productRouter;
