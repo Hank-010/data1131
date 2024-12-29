@@ -133,36 +133,47 @@ npm run build
 ## 頁面截圖
 
 **首頁**
+
 ![](https://raw.githubusercontent.com/Hank-010/data1131/master/vue-store/public/screenshots/HomePage.png)
 
 **全部商品**
+
 ![](https://raw.githubusercontent.com/Hank-010/data1131/master/vue-store/public/screenshots/GoodsPage.png)
 
 **商品搜尋**
+
 ![](https://raw.githubusercontent.com/Hank-010/data1131/master/vue-store/public/screenshots/SearchPage.png)
 
 **登入**
+
 ![](https://raw.githubusercontent.com/Hank-010/data1131/master/vue-store/public/screenshots/LoginPage.png)
 
 **註冊**
+
 ![](https://raw.githubusercontent.com/Hank-010/data1131/master/vue-store/public/screenshots/RegisterPage.png)
 
 **我的收藏**
+
 ![](https://raw.githubusercontent.com/Hank-010/data1131/master/vue-store/public/screenshots/CollectPage.png)
 
 **購物車**
+
 ![](https://raw.githubusercontent.com/Hank-010/data1131/master/vue-store/public/screenshots/ShoppingCartPage.png)
 
 **訂單確認**
+
 ![](https://raw.githubusercontent.com/Hank-010/data1131/master/vue-store/public/screenshots/OrderConfirmPage.png)
 
 **我的訂單**
+
 ![](https://raw.githubusercontent.com/Hank-010/data1131/master/vue-store/public/screenshots/OrderPage.png)
 
 **新增商品**
+
 ![](https://raw.githubusercontent.com/Hank-010/data1131/master/vue-store/public/screenshots/AddProductPage.png)
 
 **管理使用者**
+
 ![](https://raw.githubusercontent.com/Hank-010/data1131/master/vue-store/public/screenshots/UserManagePage.png)
 
 ---
