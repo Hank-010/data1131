@@ -130,7 +130,7 @@ npm run build
 
 ---
 
-## 页面截图
+## 頁面截圖
 
 **首頁**
 ![](https://raw.githubusercontent.com/Hank-010/data1131/master/vue-store/public/screenshots/collect.png)
@@ -163,7 +163,7 @@ npm run build
 ![](https://raw.githubusercontent.com/Hank-010/data1131/master/vue-store/public/screenshots/collect.png)
 
 **商品搜尋**
-![](https://raw.githubusercontent.com/Hank-010/data1131/master/vue-store/public/screenshots/collect.png)
+![](https://raw.githubusercontent.com/Hank-010/data1131/master/vue-store/public/screenshots/SearchPage.png)
 
 ---
 
