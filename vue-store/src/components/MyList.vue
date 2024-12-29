@@ -59,6 +59,7 @@ export default {
     }
   },
   methods: {
+    // 刪除收藏
     deleteCollect(product_id) {
       this.$axios
         .post("/api/user/collect/deleteCollect", {
@@ -70,6 +71,35 @@ export default {
             case "001":
               // 删除成功
               // 刪除刪除列表中的該商品訊息
+              for (let i = 0; i < this.list.length; i++) {
+                const temp = this.list[i];
+                if (temp.product_id == product_id) {
+                  this.list.splice(i, 1);
+                }
+              }
+              // 提示刪除成功訊息
+              this.notifySucceed(res.data.msg);
+              break;
+            default:
+              // 提示刪除失敗訊息
+              this.notifyError(res.data.msg);
+          }
+        })
+        .catch(err => {
+          return Promise.reject(err);
+        });
+    },
+    // 刪除商品
+    deleteProduct(user_id, product_id) {
+      this.$axios
+        .post("/api/user/product/deleteProduct", {
+          user_id: user_id,
+          product_id: product_id
+        })
+        .then(res => {
+          switch (res.data.code) {
+            case "001":// 删除成功
+              // 刪除刪除列表中的商品
               for (let i = 0; i < this.list.length; i++) {
                 const temp = this.list[i];
                 if (temp.product_id == product_id) {

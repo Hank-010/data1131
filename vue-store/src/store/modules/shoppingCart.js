@@ -14,6 +14,7 @@ export default {
       price: "", // 商品價格
       num: "", // 商品數量
       maxNum: "", // 商品限購數量
+      availableStock: "", // 商品剩餘庫存
       check: false // 是否勾選
     } */
   },

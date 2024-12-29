@@ -68,9 +68,12 @@ vue-store/
 - 訂單詳情頁顯示歷史訂單。
 
 ### 6. 使用者管理
-- 管理使用者資訊，包括新增、刪除與修改功能。
+- 管理使用者資訊，包括新增、刪除功能。
 
-### 7. 錯誤頁面
+### 7. 商品管理(未完成)
+- 管理商品資訊，包括新增、刪除功能。
+
+### 6. 錯誤頁面
 - 後端錯誤提示頁。
 
 ---
@@ -127,9 +130,46 @@ npm run build
 
 ---
 
+## 页面截图
+
+**首頁**
+![](https://raw.githubusercontent.com/Hank-010/data1131/master/vue-store/public/screenshots/collect.png)
+
+**全部商品**
+![](https://raw.githubusercontent.com/Hank-010/data1131/master/vue-store/public/screenshots/collect.png)
+
+**購物車**
+![](https://raw.githubusercontent.com/Hank-010/data1131/master/vue-store/public/screenshots/collect.png)
+
+**我的收藏**
+![](https://raw.githubusercontent.com/Hank-010/data1131/master/vue-store/public/screenshots/collect.png)
+
+**我的訂單訂單**
+![](https://raw.githubusercontent.com/Hank-010/data1131/master/vue-store/public/screenshots/collect.png)
+
+**登入**
+![](https://raw.githubusercontent.com/Hank-010/data1131/master/vue-store/public/screenshots/collect.png)
+
+**註冊**
+![](https://raw.githubusercontent.com/Hank-010/data1131/master/vue-store/public/screenshots/collect.png)
+
+**新增商品**
+![](https://raw.githubusercontent.com/Hank-010/data1131/master/vue-store/public/screenshots/collect.png)
+
+**管理使用者**
+![](https://raw.githubusercontent.com/Hank-010/data1131/master/vue-store/public/screenshots/collect.png)
+
+**訂單確認**
+![](https://raw.githubusercontent.com/Hank-010/data1131/master/vue-store/public/screenshots/collect.png)
+
+**商品搜尋**
+![](https://raw.githubusercontent.com/Hank-010/data1131/master/vue-store/public/screenshots/collect.png)
+
+---
+
 ## 作者
 
 **廖翊宏**  
-2024年12月21日  
+2024年12月29日  
 
 ---

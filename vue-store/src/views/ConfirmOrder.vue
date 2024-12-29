@@ -59,7 +59,10 @@
       <!-- 配送方式 -->
       <div class="section-shipment">
         <p class="title">配送方式</p>
-        <p class="shipment">包郵</p>
+        <!-- <p class="shipment">郵寄</p> -->
+        <p class="shipment" v-for="method in shipmentMethods" :key="method.id">
+          {{ method.name }}
+        </p>
       </div>
       <!-- 配送方式END -->
 
@@ -131,11 +134,16 @@ export default {
       address: [// 地址列表
         { id: 1, name: "陳同學", phone: "0984256357", address: "台灣 台北市 中正區 ***" },
         { id: 2, name: "王同學", phone: "0964185372", address: "台灣 新北市 新店區 ***" },
-        { id: 3, name: "李同學", phone: "0931285674", address: "台灣 桃園市 中壢區 ***" }
+        // { id: 3, name: "李同學", phone: "0931285674", address: "台灣 桃園市 中壢區 ***" }
+      ],
+      shipmentMethods: [
+        { id: 1, name: "宅配   " },
+        // { id: 2, name: "超商取貨   " },
+        // { id: 3, name: "貨到付款" }
       ],
       activityDiscount: 0, // 活動優惠
       couponDiscount: 0, // 優惠券抵扣
-      // shippingFee: 20 // 運費
+      // shippingFee: 50 // 運費
     };
   },
   created() {
