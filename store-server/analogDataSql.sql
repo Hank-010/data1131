@@ -186,3 +186,11 @@ INSERT INTO product_picture VALUES
 (NULL,33,'public/imgs/picture/protectingShell-Mi-9SE-1.jpg',NULL),
 (NULL,34,'public/imgs/picture/protectingShell-Mi-9-red-1.jpg',NULL),
 (NULL,35,'public/imgs/picture/protectingShell-Mix-3-1.jpg',NULL);
+
+
+
+insert into addresses values
+(null,2, 'admi2', 0984256357, "台灣 台北市 中正區 ***"),
+(null,2, 'SDGS', 0964185372, "台灣 新北市 新店區 ***"),
+(null,3, '=QAQ=', 0931285674, "台灣 桃園市 中壢區 ***"),
+(null,3, '(/*o*/)', 0931285674, "台灣 桃園市 中壢區 ***");

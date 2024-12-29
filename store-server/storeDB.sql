@@ -125,6 +125,20 @@ CREATE TABLE collect (
     ON DELETE CASCADE
 );
 
+-- 創建 addresses 表
+DROP TABLE IF EXISTS addresses;
+CREATE TABLE addresses (
+  id INT PRIMARY KEY AUTO_INCREMENT,  -- 地址 ID，自增主鍵
+  user_id INT NOT NULL,               -- 使用者 ID
+  name VARCHAR(50) NOT NULL,          -- 收件人名稱
+  phone VARCHAR(20) NOT NULL,         -- 收件人電話
+  address TEXT NOT NULL,              -- 收件人地址
+  CONSTRAINT FK_address_user_id
+    FOREIGN KEY (user_id) REFERENCES users (user_id) 
+    ON UPDATE CASCADE 
+    ON DELETE CASCADE
+);
+
 DELIMITER $$
 CREATE TRIGGER after_order_insert
 AFTER INSERT ON orders

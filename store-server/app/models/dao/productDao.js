@@ -106,24 +106,30 @@ module.exports = {
     return await db.query(sql, [id]);
   },
   // 連接資料庫,根據賣家id,取得商品詳細信息
-  // GetProductBySellerId: async (id) => {
-  //   const sql = `
-  //       SELECT p.*, pp.product_picture 
-  //       FROM product p 
-  //       LEFT JOIN (
-  //           SELECT product_id, MIN(product_picture) AS product_picture 
-  //           FROM product_picture 
-  //           GROUP BY product_id
-  //       ) pp 
-  //       ON p.product_id = pp.product_id 
-  //       WHERE p.seller_id = ?
-  //   `;
-  //   return await db.query(sql, [id]);
-  // },
   GetProductBySellerId: async (user_id) => {
-      const sql = 'select * from product where seller_id=?';
-      return await db.query(sql, user_id);
-    },
+    const sql = `
+        SELECT p.*, pp.product_picture 
+        FROM product p 
+        LEFT JOIN (
+            SELECT product_id, MIN(product_picture) AS product_picture 
+            FROM product_picture 
+            GROUP BY product_id
+        ) pp 
+        ON p.product_id = pp.product_id 
+        WHERE p.seller_id = ?
+    `;
+    return await db.query(sql, [user_id]);
+  },
+  // 連接資料庫,根據賣家id,取得商品
+  FindProductBySellerId: async (user_id) => {
+    const sql = 'select * from product where seller_id=?';
+    return await db.query(sql, user_id);
+  },
+  // 連結資料庫,取得使用者的某個商品訊息
+  FindSeller: async (user_id, product_id) => {
+    const sql = 'select * from product where seller_id=? and product_id=?';
+    return await db.query(sql, [user_id, product_id]);
+  },
   // 連接資料庫,根據商品id,取得商品圖片
   GetDetailsPicture: async (productID) => {
     const sql = "select * from product_picture where product_id = ? ";

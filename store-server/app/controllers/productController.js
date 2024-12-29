@@ -145,41 +145,6 @@ module.exports = {
     }
   },
   /**
-   * 根據賣家id,取得商品詳細信息
-   * @param {Object} ctx
-   */
-  GetProductManagement: async ctx => {
-    let { user_id } = ctx.request.body;
-    // 校驗使用者是否登入
-    if (!checkLogin(ctx, user_id)) {
-      return;
-    }
-
-    const productList = await productDao.GetProductBySellerId(user_id);
-
-    if (productList.length == 0) {
-      ctx.body = {
-        code: '002',
-        msg: '沒有符合條件的商品'
-      }
-      return;
-    }
-
-    let productManagementList = [];
-    // 產生收藏商品的詳細資料列表
-    for (let i = 0; i < productList.length; i++) {
-      const temp = productList[i];
-      // 獲取每個商品詳細信息
-      const product = await productDao.GetProductById(temp.product_id);
-      productManagementList.push(product[0]);
-    }
-
-    ctx.body = {
-      code: '001',
-      productManagementList: productManagementList,
-    }
-  },
-  /**
    * 根據商品id,取得商品圖片,用於商品詳情的頁面展示
    * @param {Object} ctx
    */
@@ -225,45 +190,104 @@ module.exports = {
       };
     }
   },
-    /**
-     * 刪除使用者的商品
-     * @param {Object} ctx
-     */
-    DeleteProduct: async ctx => {
-      let { user_id, product_id } = ctx.request.body;
-      // 校驗使用者是否登入
-      // if (!checkLogin(ctx, user_id)) {
-      //   return;
-      // }
-  
-      // 判斷該使用者是否存在
-      let tempProduct = await productDao.GetProductById(product_id);
-  
-      if (tempProduct.length > 0 && tempProduct.seller_id === user_id) {
-        // 如果存在則刪除
-        try {
-          const result = await productDao.DeleteProductByUserId(user_id, product_id);
-          // 判斷是否刪除成功
-          if (result.affectedRows === 1) {
-            ctx.body = {
-              code: '001',
-              msg: '刪除商品成功'
-            }
-            return;
-          }
-        } catch (error) {
-          // reject(error);
+  /**
+   * 根據賣家id,取得商品詳細信息
+   * @param {Object} ctx
+   */
+  // GetProductManagement: async ctx => {
+  //   let { user_id } = ctx.request.body;
+  //   // 校驗使用者是否登入
+  //   if (!checkLogin(ctx, user_id)) {
+  //     return;
+  //   }
+
+  //   // 獲取所有的商品資訊
+  //   const productManagementList = await productDao.GetProductBySellerId(user_id);
+
+  //   // 沒有商品,直接回訊息
+  //   if (productManagementList.length == 0) {
+  //     ctx.body = {
+  //       code: '002',
+  //       msg: '沒有符合條件的商品'
+  //     }
+  //     return;
+  //   }
+
+  //   ctx.body = {
+  //     code: '001',
+  //     productManagementList: productManagementList
+  //   }
+  // },
+  GetProductManagement: async ctx => {
+    let { user_id } = ctx.request.body;
+    // 校驗使用者是否登入
+    if (!checkLogin(ctx, user_id)) {
+      return;
+    }
+
+    const productList = await productDao.FindProductBySellerId(user_id);
+
+    if (productList.length == 0) {
+      ctx.body = {
+        code: '002',
+        msg: '沒有符合條件的商品'
+      }
+      return;
+    }
+
+    let productManagementList = [];
+    // 產生收藏商品的詳細資料列表
+    for (let i = 0; i < productList.length; i++) {
+      const temp = productList[i];
+      // 獲取每個商品詳細信息
+      const product = await productDao.GetProductById(temp.product_id);
+      productManagementList.push(product[0]);
+    }
+
+    ctx.body = {
+      code: '001',
+      productManagementList: productManagementList,
+    }
+  },
+  /**
+   * 刪除使用者的商品
+   * @param {Object} ctx
+   */
+  DeleteProduct: async ctx => {
+    let { user_id, product_id } = ctx.request.body;
+    // 校驗使用者是否登入
+    // if (!checkLogin(ctx, user_id)) {
+    //   return;
+    // }
+
+    // 判斷該使用者是否存在
+    let tempProduct = await productDao.FindSeller (user_id, product_id);
+
+    if (tempProduct.length > 0) {
+      // 如果存在則刪除
+      try {
+        const result = await productDao.DeleteProductByUserId(user_id, product_id);
+        // 判斷是否刪除成功
+        if (result.affectedRows === 1) {
           ctx.body = {
-            code: '500',
-            msg: `資料庫操作失敗: ${error.message}`
-          };
+            code: '001',
+            msg: '刪除商品成功'
+          }
+          return;
         }
-      } else {
-        // 不存在則回傳訊息
+      } catch (error) {
+        // reject(error);
         ctx.body = {
-          code: '002',
-          msg: '該商品不存在'
-        }
+          code: '500',
+          msg: `資料庫操作失敗: ${error.message}`
+        };
+      }
+    } else {
+      // 不存在則回傳訊息
+      ctx.body = {
+        code: '002',
+        msg: '該商品不存在'
       }
     }
+  }
 }

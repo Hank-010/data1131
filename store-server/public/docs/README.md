@@ -4,7 +4,7 @@
 
 本專案採用前後端分離架構，前端部分基於 `Vue.js` 開發，實現商城的主要功能，包括商品展示、搜尋、購物車、訂單管理等。  
 
-> 後端部分請參考 [store-server](../store-server/README.md)。
+> 後端部分請參考 [store-server](https://github.com/Hank-010/data1131/tree/master/store-server)。
 
 ---
 
@@ -68,9 +68,12 @@ vue-store/
 - 訂單詳情頁顯示歷史訂單。
 
 ### 6. 使用者管理
-- 管理使用者資訊，包括新增、刪除與修改功能。
+- 管理使用者資訊，包括新增、刪除功能。
 
-### 7. 錯誤頁面
+### 7. 商品管理(未完成)
+- 管理使用者資訊，包括新增、刪除功能。
+
+### 6. 錯誤頁面
 - 後端錯誤提示頁。
 
 ---
@@ -112,7 +115,7 @@ npm run build
 ## 與後端的整合
 
 1. **確保後端伺服器已運行：**
-   參考 [store-server](../store-server/README.md) 啟動後端伺服器。
+   參考 [store-server](https://github.com/Hank-010/data1131/tree/master/store-server) 啟動後端伺服器。
 
 2. **修改 API 地址：**
    如果後端伺服器運行於非默認位置，請更新 `src/Global.js` 和 `vue.config.js`。
@@ -130,6 +133,6 @@ npm run build
 ## 作者
 
 **廖翊宏**  
-2024年12月21日  
+2024年12月29日  
 
 ---
